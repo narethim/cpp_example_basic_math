@@ -20,7 +20,7 @@ int main() {
     printf("\nAddition Result: %d\n", z1);
 
     int z2 = basicMath.Multiply(x, y);
-    printf("\nAddition Result: %d\n", z2);
+    printf("\nMultiply Result: %d\n", z2);
 
 	return 0;
 }

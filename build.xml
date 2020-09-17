@@ -45,14 +45,14 @@
   </target>
 
   <target name="testdbCpp2junit" 
-        description="Convert cppunit test results to junit test results" >
-    <echo>Tests run from  directory: ${build.native}/Test</echo>
-    <exec dir="${build.native}/Test" executable="${xsltproc.cmd}" failonerror="true">
+        description="Convert cppunit test results to junit test results" depends="run-test" >
+    <echo>Tests run from  directory: ${build.test}</echo>
+    <exec dir="${build.test}" executable="${xsltproc.cmd}" failonerror="true">
       <arg value="-o"/>
 
-      <arg value="test/data/junitTestBasicMathResults.xml"/>
+      <arg value="junitTestBasicMathResults.xml"/>
       <arg value="cpp2junit.xslt"/>
-      <arg value="cppTestBasicMathResults.xml"/>
+      <arg value="cppBasicMath_TestResults.xml"/>
     </exec>
   </target>
 

@@ -7,6 +7,7 @@
   <property name="make.cmd" value="/usr/bin/make"/>
   <property name="build.native" value="./src"/>
   <property name="build.test" value="./test_cppunit/src"/>
+  <property name="xsltproc.cmd" value="/usr/bin/xsltproc"/>
 
   <target name="init">
     <!-- Create the time stamp -->
@@ -40,6 +41,18 @@
   <target name="run-test" description="Run application" depends="compile-test">
     <exec dir="${build.test}" executable="testAll" failonerror="true">
       <arg line="--gtest_output='xml:./testAll.xml'"/>
+    </exec>
+  </target>
+
+  <target name="testdbCpp2junit" 
+        description="Convert cppunit test results to junit test results" >
+    <echo>Tests run from  directory: ${build.native}/Test</echo>
+    <exec dir="${build.native}/Test" executable="${xsltproc.cmd}" failonerror="true">
+      <arg value="-o"/>
+
+      <arg value="test/data/junitTestBasicMathResults.xml"/>
+      <arg value="cpp2junit.xslt"/>
+      <arg value="cppTestBasicMathResults.xml"/>
     </exec>
   </target>
 

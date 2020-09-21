@@ -34,7 +34,7 @@
   </target>
 
   <target name="run" description="Run application" depends="compile">
-    <exec dir="${build.native}" executable="./exampleapp" failonerror="true">
+    <exec dir="${build.native}" executable="./basic_math" failonerror="true">
     </exec>
   </target>
 

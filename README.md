@@ -1,5 +1,7 @@
 # cpp_example_basic_math - Cpp Example code and Unit Test using CppUnit
 
+![c++ CI](https://github.com/narethim/cpp_example_basic_math/workflows/Java-CI/badge.svg?branch=main)
+
 ## Prerequisite
 
 * Java SDK Development

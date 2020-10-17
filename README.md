@@ -37,3 +37,19 @@ ant clean
 ant run-test
 
 ```
+
+## How to run it remotely on a host created by Vagrant
+
+```sh
+# Install ansible role `geerlingguy.java`
+ansible-galaxy install geerlingguy.java
+
+# Bring up a `bento/ubuntu-20.04` VM
+vagrant up
+```
+
+Connect to the VM
+
+```sh
+vagrant ssh
+```

@@ -1,49 +1,80 @@
 ---
-    - name: Playbook to install geerlingguy.java on linux machine.
-      hosts: all
-      roles:
-        - role: geerlingguy.java
-          become: yes
-    
-      tasks:
-        # Get date
-        - name: Get date.
-          command: date
-          register: date_result
-    
-        - name: Display date.
-          debug: 
-            var: date_result.stdout
-    
-        # Get hostname
-        - name: Get hostname.
-          shell: hostname
-          register: hostname_result
-    
-        - name: Display hostname_result.
-          debug: 
-            var: hostname_result.stdout
-    
-        # Get os-release
-        - name: Get os-release.
-          shell: "cat /etc/os-release"
-          register: os_release_result
-    
-        - name: Display os_release_result.
-          debug: 
-            var: os_release_result.stdout
+- name: Playbook to install and build CppUnit test on linux machine.
+  hosts: all
 
-        # Install development tools
-        - name: Install development tools.
-          apt: 
-            name: build-essential
-            state: present
-    
-        # Install CppUnit
-        - name: Install CppUnit.
-          apt: 
-            name: 
-              - libcppunit-dev 
-              - libcppunit-doc 
-              - xsltproc
-            state: present
+  tasks:
+    # Get date
+    - name: Get date.
+      command: date
+      register: date_result
+
+    - name: Display date.
+      debug:
+        var: date_result.stdout
+
+    # Get hostname
+    - name: Get hostname.
+      shell: hostname
+      register: hostname_result
+
+    - name: Display hostname_result.
+      debug:
+        var: hostname_result.stdout
+
+    # Get os-release
+    - name: Get os-release.
+      shell: "cat /etc/os-release"
+      register: os_release_result
+
+    - name: Display os_release_result.
+      debug:
+        var: os_release_result.stdout
+
+    # Install development tools
+    - name: Install development tools.
+      apt:
+        name:
+          - build-essential
+          - wget
+          - git
+          - curl
+          - ant
+        state: present
+        update_cache: true
+
+    # Install CppUnit
+    - name: Install CppUnit.
+      apt:
+        name:
+          - libcppunit-dev
+          - libcppunit-doc
+          - xsltproc
+        state: present
+
+    # Run the equivalent of "apt-get update" as a separate step.
+    - name: Run the equivalent of "apt-get update" as a separate step.
+      apt:
+        update_cache: true
+
+    # Include geerlingguy.java role
+    - name: Include geerlingguy.java role.
+      include_role:
+        name: geerlingguy.java
+
+    # Git checkout
+    - name: Git checkout
+      git:
+        repo: "https://github.com/narethim/cpp_example_basic_math.git"
+        dest: "/home/vagrant/checkout"
+      become: false
+
+    # Build using ant
+    - name: Build using ant.
+      shell: ant
+      args:
+        chdir: /home/vagrant/checkout/
+      register: build_output
+
+    - name: Display build_output.
+      debug:
+        var: build_output.stdout

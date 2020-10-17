@@ -16,7 +16,7 @@ jobs:
 
     steps:
     - name: Install cppunit manually
-      run: sudo apt install libcppunit-dev libcppunit-doc && sudo apt install xsltproc
+      run: sudo apt install libcppunit-dev libcppunit-doc xsltproc
 
     - uses: actions/checkout@v2
 

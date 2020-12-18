@@ -10,6 +10,7 @@
 #include "CBasicMathFloat.h"
 
 #include <iostream>
+#include <stdio.h>
 using namespace std;
 
 void run_basic_math() {
